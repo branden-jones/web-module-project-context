@@ -10,7 +10,7 @@ import Navigation from "./components/Navigation";
 import Products from "./components/Products";
 import ShoppingCart from "./components/ShoppingCart";
 
-function App() {
+function App(props) {
   const [products] = useState(data);
   const [cart, setCart] = useState([]);
 
@@ -19,9 +19,15 @@ function App() {
     setCart([...cart, item]);
   };
 
+  const removeItem = (el) => {
+    const { id } = el;
+    const filtered = cart.filter((item) => item.id !== id);
+    setCart(filtered);
+  };
+
   return (
     <div className="App">
-      <CartContext.Provider value={cart}>
+      <CartContext.Provider value={{ cart, removeItem }}>
         <Navigation />
 
         {/* Routes */}
